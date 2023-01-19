@@ -1,0 +1,294 @@
+@import "variables";
+
+$blockNames: photo, name, color, size, count, price, delete;
+$colors: (
+        color1: #f50303,
+        color2: #0202f6,
+        color3:#005380,
+        color4:#40ac40,
+        color5:#038703,
+        color6:#770080,
+        color7:#3f493f
+);
+
+$colorList: none, none, none, none, none, none, none;
+
+.order {
+  h3 {
+    margin: 30px 0;
+  }
+
+  &_elem {
+    margin: 10px 0;
+    display: grid;
+    grid-template-columns: 95px 1fr 0.5fr 1fr 1fr 0.5fr 55px;
+    grid-template-rows: 110px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "photo name color size count price delete";
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+    position: relative;
+
+    > div {
+      align-self: center;
+      justify-self: center;
+      @for $i from 1 through 7 {
+        &:nth-child(#{$i}) {
+          grid-area: nth($blockNames, $i);
+          background: nth($colorList, $i);
+        }
+      }
+    }
+  }
+
+  &_photo {
+    height: 110px;
+  }
+
+  &_name {
+    width: 100%;
+    padding: 0 10px;
+    //align-self: center;
+  }
+
+  &_id {
+    position: absolute;
+    top: 0;
+    color: $mainColor;
+  }
+
+  &_color {
+    align-self: center;
+  }
+
+  .size-list {
+    align-self: center;
+
+    select {
+      padding: 16px 30px;
+    }
+  }
+
+  &_count {
+    display: flex;
+    border: 1px solid black;
+
+    > * {
+      width: 33px;
+      height: 50px;
+      border: none;
+      background: none;
+    }
+
+    input[type="number"] {
+      -moz-appearance: none;
+      margin: 0;
+      text-align: center;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    button {
+      font-size: 20px;
+      color: $mainColor;
+      cursor: pointer;
+
+      &:active {
+        color: $mainColorActive;
+      }
+    }
+  }
+
+  &_price {
+    width: 100%;
+    text-align: right;
+  }
+
+  &_delete {
+    width: 100%;
+    text-align: right;
+
+    svg {
+      cursor: pointer;
+      width: 25px;
+      height: 25px;
+      fill: $mainColor;
+
+      &:active {
+        fill: $mainColorActive;
+      }
+    }
+  }
+
+  &_sum {
+    margin-top: 30px;
+    width: 100%;
+    text-align: right;
+  }
+}
+
+.ordering-form {
+  margin-top: 70px;
+
+  &_container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  &_delivery-data {
+    margin-right: 20px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: fit-content(100%);
+    grid-auto-columns: 1fr;
+    gap: 20px;
+    grid-auto-flow: row;
+
+    input {
+      height: 50px;
+      padding: 0 15px;
+    }
+
+    input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      transform: translateY(0.3em);
+    }
+
+  }
+
+  .row {
+    &_full {
+      grid-column: 1/3;
+    }
+  }
+
+  &_icon {
+    height: 15px;
+    width: fit-content;
+    display: inline-block;
+  }
+
+  #private24-icon {
+    height: 20px;
+    transform: translateY(0.3em);
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  &_link {
+    margin-bottom: 20px;
+  }
+
+  .sign-in {
+    color: $mainColor;
+  }
+
+  &_delivery-submit {
+    min-width: 300px;
+    width: 300px;
+
+    input[type="button"] {
+      height: 50px;
+      width: 100%;
+    }
+  }
+
+  &_total {
+    display: inline-block;
+    width: 100%;
+    text-align: justify;
+
+    &:after {
+      content: "";
+      display: inline-block;
+      width: 100%;
+    }
+
+    > div {
+      display: inline-block;
+      font-weight: bold;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .ordering-form {
+    &_container {
+      flex-direction: column;
+      justify-content: stretch;
+      align-items: center;
+    }
+
+    &_delivery-data {
+      margin-right: 0;
+    }
+
+    &_delivery-submit {
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .order {
+    &_elem {
+      grid-template-columns: 95px 1fr 1fr 1fr 1fr;
+      grid-template-rows: 55px;
+      grid-auto-flow: row;
+      gap: 5px;
+      grid-template-areas:
+    "photo name name name price"
+    "photo color size count delete";
+    }
+  }
+}
+
+@media screen and (max-width: 499px) {
+  .ordering-form {
+    &_delivery-data {
+      > * {
+        grid-column: 1/3;
+      }
+    }
+  }
+  #title_delivery-international {
+    grid-area: 10/1/11/2;
+  }
+
+  .order {
+    &_count {
+      display: flex;
+      border: 1px solid black;
+
+      > * {
+        width: 33%;
+        height: 50px;
+        border: none;
+        background: none;
+      }
+    }
+    &_size{
+      width: 100%;
+    }
+    .size-list {
+      align-self: center;
+      select{
+        padding: 10px;
+      }
+      &:after{
+        right: 10px;
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+.slider {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+.slider_button {
+  width: 40px;
+  height: 40px;
+  background: #E0BEA2;
+  text-align: center;
+  font-size: 22px;
+  line-height: 40px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  z-index: 1000;
+  cursor: pointer;
+}
+.slider_button:hover {
+  background: #CCA88A;
+}
+.slider_next {
+  right: 20px;
+}
+.slider_prev {
+  left: 20px;
+}
+.slider_card {
+  height: 450px;
+  position: relative;
+  cursor: pointer;
+}
+.slider_name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  background: rgba(224, 190, 162, 0.75);
+  backdrop-filter: blur(3px);
+  line-height: 40px;
+  font-size: 20px;
+  color: white;
+}
+
+/*# sourceMappingURL=slider.css.map */
