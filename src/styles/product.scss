@@ -1,0 +1,236 @@
+@import "variables";
+
+.product {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 100px;
+
+  &_photo-grid {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-columns: 100px 550px;
+    grid-template-rows: 100px 100px 100px 100px 100px;
+    gap: 10px 10px;
+    grid-template-areas:
+      "side1 main"
+      "side2 main"
+      "side3 main"
+      "side4 main"
+      "side5 main";
+    justify-items: stretch;
+    align-items: stretch;
+
+    li {
+      width: 100px;
+      height: 100px;
+      @for $i from 1 through 4 {
+        &:nth-child(#{$i}) {
+          grid-area: side#{$i};
+        }
+      }
+
+      &:nth-last-child(1) {
+        grid-area: main;
+        width: auto;
+        height: 100%;
+      }
+
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+
+  &_content {
+    width: 100%;
+    padding: 0 0 0 50px;
+
+    .select-wrapper{
+      width: inherit;
+      border: 1px solid black;
+      .select-button{
+        margin: 0;
+        width: 100%;
+        text-align: left;
+        padding: 0 20px;
+        &:after{
+          color: $mainColor;
+          right: 20px;
+        }
+      }
+      ul{
+        background: white;
+        border: 1px solid black;
+        border-top: none;
+        padding: 5px 0 5px 5px;
+        li{
+          border-top: 1px solid $mainColor;
+        }
+      }
+    }
+  }
+
+  &_price {
+    margin: 20px 0;
+  }
+
+  &_color-list{
+    li{
+      margin-right: .5em;
+    }
+  }
+
+  &_color-name {
+    color: $mainColor;
+    margin: 10px 0 20px;
+  }
+
+  input[type="button"] {
+    width: calc(50% - 10px);
+    height: 50px;
+    margin-right: 15px;
+  }
+
+  button {
+    width: calc(50% - 10px);
+    height: 50px;
+    border: 1px solid $darkColor;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 300;
+    background: #FFFFFF;
+    cursor: pointer;
+    margin-top: 20px;
+
+    svg {
+      height: 15px;
+      width: 15px;
+      fill: $mainColor;
+    }
+
+    &:active {
+      background: #F5F5F5;
+    }
+  }
+
+  &_details {
+    width: 100%;
+    border-bottom: 1px solid $darkColor;
+    padding-bottom: 10px;
+    margin: 20px 0;
+    span{
+      cursor: pointer;
+      font-size: 16px;
+      display: inline-block;
+      width: 100%;
+      position: relative;
+      &:after{
+        position: absolute;
+        content: $symbolCaretDown;
+        right: 0;
+        color: $mainColor;
+        font-size: 10px;
+        font-weight: bold;
+        transform: translateY(50%);
+      }
+    }
+    &-description{
+      white-space: pre-line;
+      font-size: 14px;
+      margin: 10px 0;
+      display: none;
+    }
+    .open{
+      span{
+        &:after{
+          transform: rotate(180deg);
+        }
+      }
+      .product_details {
+        &-description {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.product-more{
+  margin-bottom: 70px;
+  h3{
+    margin-bottom: 30px;
+  }
+  &_big{
+    .product-block{
+      display: inline-block;
+      width: 370px;
+      margin-right: 15px;
+    }
+  }
+  &_small{
+    .product-block{
+      display: inline-block;
+      width: 274px;
+      margin-right: 15px;
+    }
+  }
+}
+
+@media screen and (max-width: 1199px){
+  .product{
+    &_photo-grid {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 63px;
+      gap: 10px;
+      grid-template-areas:
+      "main main main main main"
+      "side1 side2 side3 side4 side5";
+    }
+  }
+}
+
+@media screen and (max-width: 1064px){
+  .product{
+    &_photo-grid {
+      grid-template-rows: 335px 63px;
+      li {
+        width: 63px;
+        height: 63px;
+        &:nth-last-child(1) {
+          width: auto;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .product-more{
+    &_small, &_big{
+      .product-block{
+        width: 165px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px){
+  .product{
+    flex-direction: column;
+    justify-content: stretch;
+    &_photo-grid {
+      margin: auto;
+      grid-template-rows: 335px 63px;
+      li {
+        width: 63px;
+        height: 63px;
+        &:nth-last-child(1) {
+          width: auto;
+          height: 100%;
+        }
+      }
+    }
+    &_content {
+      width: 100%;
+      padding: 50px 0 0 0;
+    }
+  }
+}

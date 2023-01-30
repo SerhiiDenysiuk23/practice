@@ -1,0 +1,23 @@
+@import "variables";
+.news-subscribe{
+  width: 600px;
+  margin: auto;
+  input{
+    width: 100%;
+    height: 50px;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    color: $darkColor;
+  }
+  p{
+    text-align: center;
+    color: $darkColor;
+  }
+}
+
+@media screen and (max-width: 660px){
+  .news-subscribe{
+    width: 100%;
+  }
+}

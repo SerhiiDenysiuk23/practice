@@ -1,0 +1,93 @@
+@import "variables";
+
+.burger-menu {
+  cursor: pointer;
+
+  & > * {
+    height: 4px;
+    border: none;
+
+    &:nth-child(1) {
+      width: 34px;
+    }
+
+    &:nth-child(2) {
+      width: 26px;
+      margin: 6px 0;
+    }
+
+    &:nth-child(3) {
+      width: 18px;
+    }
+  }
+
+  &_close {
+    position: relative;
+    cursor: pointer;
+
+    > * {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 34px;
+      border: none;
+
+      &:nth-child(1) {
+        transform: rotate(45deg);
+      }
+
+      &:nth-child(2) {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+
+.select-wrapper {
+  position: relative;
+  color: inherit;
+
+  .select-button {
+    color: inherit;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    font-size: inherit;
+    background: none;
+    border: none;
+    font-weight: inherit;
+
+    &:after {
+      position: absolute;
+      content: $symbolCaretDown;
+      right: 0;
+      font-weight: bold;
+      font-size: 10px;
+      transform: translateY(50%);
+    }
+  }
+
+  .expanded{
+    &:after{
+      transform: rotate(180deg);
+    }
+  }
+
+  ul {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    left: 0;
+    width: 100%;
+    text-align: center;
+
+    li {
+      cursor: pointer;
+    }
+
+    &.show {
+      display: block;
+    }
+  }
+}
