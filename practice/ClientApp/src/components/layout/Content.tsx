@@ -4,6 +4,8 @@ import MainPage from "../mainPage/MainPage";
 import CatalogPage from "../catalog/CatalogPage";
 import ProductPage from "../product/ProductPage";
 import BasketPage from "../basket/BasketPage";
+import AdminLayout from "../Admin/AdminLayout"
+import Categories from "../Admin/Categories";
 
 const Content = () => {
     return (
@@ -12,6 +14,8 @@ const Content = () => {
             <Route path={"/catalog"} element={<CatalogPage/>}/>
             <Route path={"/product"} element={<ProductPage/>}/>
             <Route path={"/basket"} element={<BasketPage/>}/>
+            <Route path={"/admin"} element={<AdminLayout/>}/>
+            <Route path={"/admin/category"} element={<Categories/>}/>
         </Routes>
     );
 };
