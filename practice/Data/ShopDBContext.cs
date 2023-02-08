@@ -14,7 +14,14 @@ namespace practice.Data
 
         public ShopDBContext(DbContextOptions options) : base(options)
         {
-
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>().HasAlternateKey(u => u.Name);
+            modelBuilder.Entity<Color>().HasAlternateKey(u => u.Name);
+            modelBuilder.Entity<Size>().HasAlternateKey(u => u.Name);
+            modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
+            modelBuilder.Entity<Product>().HasAlternateKey(u => u.Name);
         }
     }
 }

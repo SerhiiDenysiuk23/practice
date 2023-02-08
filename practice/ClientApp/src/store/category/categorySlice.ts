@@ -20,9 +20,17 @@ export const categorySlice = createSlice({
         },
         setCategory:(state, action: PayloadAction<Category>) => {
             return {...state, category: action.payload}
+        },
+        createCategory:(state, action: PayloadAction<Category>) => {
+            return {...state, categoryList: [action.payload, ...state.categoryList]}
+        },
+        deleteCategory:(state, action: PayloadAction<Category>) => {
+            return {...state, categoryList: state.categoryList.filter(item => item.id != action.payload.id)}
         }
     }
 })
 
 export const setCategoryListAction = createAction("setCategoryList")
-export const {setCategoryList, setCategory} = categorySlice.actions
+export const createCategoryAction = createAction<Category>("createCategory")
+export const deleteCategoryAction = createAction<Category>("deleteCategory")
+export const {setCategoryList, setCategory, createCategory, deleteCategory} = categorySlice.actions

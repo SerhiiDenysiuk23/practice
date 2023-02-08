@@ -48,9 +48,21 @@ namespace practice.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Categories.Add(category);
+                await _context.SaveChangesAsync();
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
+            var categoryDb = await _context.Categories.Where(u => u.Name == category.Name).FirstOrDefaultAsync();
+            if (categoryDb == null)
+            {
+                return NotFound();
+            }
+            int test = 0;
             return CreatedAtAction("GetCategory", new { id = category.Id }, category);
         }
 

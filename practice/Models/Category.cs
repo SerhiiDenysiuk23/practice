@@ -1,4 +1,7 @@
-﻿namespace practice.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
+namespace practice.Models
 {
     public class Category
     {
