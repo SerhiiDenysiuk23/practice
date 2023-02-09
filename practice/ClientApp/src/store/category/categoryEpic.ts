@@ -7,14 +7,13 @@ import {
     setCategoryList,
     setCategoryListAction
 } from "./categorySlice";
-import {categoryQueries} from "../../api/categoryQueries";
+import {deleteQuery, getListQuery, postQuery} from "../../api/core";
 
 const setCategoryListEpic: Epic = (action$:Observable<ReturnType<typeof setCategoryListAction>>) => {
     return action$.pipe(
         ofType(setCategoryListAction.type),
-        mergeMap(() => from(categoryQueries.getCategoryList()).pipe(
+        mergeMap(() => from(getListQuery("Categories")).pipe(
             map(response => {
-                console.log(response)
                 return setCategoryList(response)
             })
         ))
@@ -24,7 +23,7 @@ const setCategoryListEpic: Epic = (action$:Observable<ReturnType<typeof setCateg
 const createCategoryEpic: Epic = (action$:Observable<ReturnType<typeof createCategoryAction>>) => {
     return action$.pipe(
         ofType(createCategoryAction.type),
-        mergeMap(action => from(categoryQueries.postCategory(action.payload)).pipe(
+        mergeMap(action => from(postQuery("Categories", action.payload)).pipe(
             map(response => {
                 console.log(response)
                 return createCategory(response)
@@ -36,7 +35,7 @@ const createCategoryEpic: Epic = (action$:Observable<ReturnType<typeof createCat
 const deleteCategoryEpic: Epic = (action$:Observable<ReturnType<typeof deleteCategoryAction>>) => {
     return action$.pipe(
         ofType(deleteCategoryAction.type),
-        mergeMap(action => from(categoryQueries.deleteCategory(action.payload.id)).pipe(
+        mergeMap(action => from(deleteQuery("Categories", action.payload.id)).pipe(
             map(response => {
                 console.log(response)
                 return deleteCategory(action.payload)

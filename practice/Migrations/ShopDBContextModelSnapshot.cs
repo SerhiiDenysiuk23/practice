@@ -38,7 +38,7 @@ namespace practice.Migrations
 
                     b.HasAlternateKey("Name");
 
-                    b.ToTable("Categories");
+                    b.ToTable("CategoryTable");
                 });
 
             modelBuilder.Entity("practice.Models.Color", b =>
