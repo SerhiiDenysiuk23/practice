@@ -12,7 +12,7 @@ using practice.Data;
 namespace practice.Migrations
 {
     [DbContext(typeof(ShopDBContext))]
-    [Migration("20230208021007_Init")]
+    [Migration("20230314114414_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace practice.Migrations
 
                     b.HasAlternateKey("Name");
 
-                    b.ToTable("CategoryTable");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("practice.Models.Color", b =>
@@ -59,14 +59,9 @@ namespace practice.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasAlternateKey("Name");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Colors");
                 });
@@ -87,36 +82,6 @@ namespace practice.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("practice.Models.Photo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Size")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Photo");
-                });
-
             modelBuilder.Entity("practice.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -129,6 +94,9 @@ namespace practice.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ColorValueId")
                         .HasColumnType("int");
 
                     b.Property<string>("CompositionAndCare")
@@ -149,6 +117,9 @@ namespace practice.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int>("SizeValueId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
@@ -158,7 +129,11 @@ namespace practice.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("ColorValueId");
+
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("SizeValueId");
 
                     b.HasIndex("UserId");
 
@@ -177,14 +152,9 @@ namespace practice.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasAlternateKey("Name");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Sizes");
                 });
@@ -234,20 +204,6 @@ namespace practice.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("practice.Models.Color", b =>
-                {
-                    b.HasOne("practice.Models.Product", null)
-                        .WithMany("ColorList")
-                        .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("practice.Models.Photo", b =>
-                {
-                    b.HasOne("practice.Models.Product", null)
-                        .WithMany("PhotoList")
-                        .HasForeignKey("ProductId");
-                });
-
             modelBuilder.Entity("practice.Models.Product", b =>
                 {
                     b.HasOne("practice.Models.Category", "Category")
@@ -256,36 +212,36 @@ namespace practice.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("practice.Models.Color", "ColorValue")
+                        .WithMany()
+                        .HasForeignKey("ColorValueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("practice.Models.Order", null)
                         .WithMany("ProductList")
                         .HasForeignKey("OrderId");
+
+                    b.HasOne("practice.Models.Size", "SizeValue")
+                        .WithMany()
+                        .HasForeignKey("SizeValueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("practice.Models.User", null)
                         .WithMany("WishList")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Category");
-                });
 
-            modelBuilder.Entity("practice.Models.Size", b =>
-                {
-                    b.HasOne("practice.Models.Product", null)
-                        .WithMany("SizeList")
-                        .HasForeignKey("ProductId");
+                    b.Navigation("ColorValue");
+
+                    b.Navigation("SizeValue");
                 });
 
             modelBuilder.Entity("practice.Models.Order", b =>
                 {
                     b.Navigation("ProductList");
-                });
-
-            modelBuilder.Entity("practice.Models.Product", b =>
-                {
-                    b.Navigation("ColorList");
-
-                    b.Navigation("PhotoList");
-
-                    b.Navigation("SizeList");
                 });
 
             modelBuilder.Entity("practice.Models.User", b =>

@@ -23,10 +23,7 @@ const ColorTable = () => {
         <table>
             <thead>
             <tr>
-                <th/>
-                <th>Цвет</th>
-                <th/>
-                <th/>
+                <th colSpan={4}>Цвет</th>
             </tr>
             </thead>
             <tbody>

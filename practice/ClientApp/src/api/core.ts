@@ -1,7 +1,7 @@
 import {Color} from "../types/Color";
 import {Category} from "../types/Category";
 
-export type Controller = "Categories" | "Colors"
+export type Controller = "Categories" | "Colors" | "Sizes"
 type dataType = Category | Color
 
 export const getListQuery = async (controller: Controller) => {

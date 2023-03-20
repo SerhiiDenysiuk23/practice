@@ -24,7 +24,6 @@ const Navigation = () => {
         setCurrency(option.value)
     }
 
-
     return (
         <nav className="nav-bar">
             <BurgerMenu/>

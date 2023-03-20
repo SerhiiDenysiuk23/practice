@@ -15,10 +15,12 @@ namespace practice.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly ShopDBContext _context;
+        private IWebHostEnvironment _environment;
 
-        public ProductsController(ShopDBContext context)
+        public ProductsController(ShopDBContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         // GET: api/Products
@@ -76,13 +78,39 @@ namespace practice.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Product>> PostProduct([FromForm] ProductModel model)
         {
+            Product product = new Product()
+            {
+                Name = model.Name,
+                AddDate = DateTime.Now,
+                Category = model.Category,
+                ColorValue = model.ColorValue,
+                CompositionAndCare = model.CompositionAndCare,
+                Description = model.Description,
+                SizeValue = model.SizeValue,
+                Price = model.Price
+            };
+
+            foreach (var item in model.Photos)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(item.FileName);
+
+                var filePath = Path.Combine(_environment.WebRootPath, "uploads", fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await item.CopyToAsync(stream);
+                }
+            }
+
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
+
+
+
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]

@@ -1,35 +1,37 @@
 import React, {useEffect, useState} from 'react';
-import {useAppSelector} from "../../hooks/useAppSelector";
-import {Category} from "../../types/Category";
 import {useDispatch} from "react-redux";
-import {createCategoryAction, deleteCategoryAction, setCategoryListAction} from "../../store/category/categorySlice";
+import {useAppSelector} from "../../hooks/useAppSelector";
+import {Size} from "../../types/Size";
+import {createSizeAction, deleteSizeAction, setSizeListAction} from "../../store/size/sizeSlice";
 
-const CategoryTable = () => {
+const SizeTable = () => {
     const dispatch = useDispatch()
-    const {categoryList} = useAppSelector(state => state.categoryReducer)
-    const [categoryPost, setCategoryPost] = useState<Category | null>(null)
+    const {sizeList} = useAppSelector(state => state.sizeReducer)
+
+    const [sizePost, setSizePost] = useState<Size | null>(null)
 
     const categoryCreateHandler = () => {
-        if (categoryPost && !categoryList.find(item => item.name == categoryPost.name)) {
-            dispatch(createCategoryAction(categoryPost))
+        if (sizePost && !sizeList.find(item => item.name == sizePost.name)) {
+            dispatch(createSizeAction(sizePost))
         }
     }
 
     useEffect(()=> {
-        dispatch(setCategoryListAction())
+        dispatch(setSizeListAction())
     }, [])
+
     return (
         <table>
             <thead>
             <tr>
-                <th colSpan={2}>Категории</th>
+                <th colSpan={2}>Размер</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>
                     <input
-                        onChange={e => setCategoryPost({id: 0, name: e.target.value})}
+                        onChange={e => setSizePost({id: 0, name: e.target.value})}
                         type="text"
                         // value={categoryPost.name}
                         placeholder={"Name"}/>
@@ -39,12 +41,12 @@ const CategoryTable = () => {
                 </td>
             </tr>
             {
-                categoryList.length > 0
-                    ? categoryList.map(item =>
+                sizeList.length > 0
+                    ? sizeList.map(item =>
                         <tr key={item.id}>
                             <td>{item.name}</td>
                             <td><button onClick={()=>{
-                                dispatch(deleteCategoryAction(item))
+                                dispatch(deleteSizeAction(item))
                             }}>Delete</button></td>
                         </tr>)
                     : null
@@ -54,4 +56,4 @@ const CategoryTable = () => {
     );
 };
 
-export default CategoryTable;
+export default SizeTable;

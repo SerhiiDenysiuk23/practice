@@ -5,16 +5,19 @@ import {categoryEpics} from "./category/categoryEpic";
 import {categorySlice} from "./category/categorySlice";
 import {colorSlice} from "./color/colorSlice";
 import {colorEpics} from "./color/colorEpic";
+import {sizeSlice} from "./size/sizeSlice";
+import {sizeEpics} from "./size/sizeEpic";
 
 const epicMiddleware = createEpicMiddleware();
 
-const rootEpic = combineEpics(categoryEpics, colorEpics);
+const rootEpic = combineEpics(categoryEpics, colorEpics, sizeEpics);
 
 export const store = configureStore({
     reducer: {
         headerReducer: headerSlice.reducer,
         categoryReducer: categorySlice.reducer,
-        colorReducer: colorSlice.reducer
+        colorReducer: colorSlice.reducer,
+        sizeReducer: sizeSlice.reducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,
